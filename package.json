@@ -1,0 +1,19 @@
+{
+  "name": "quan-ly-sach-23it069",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Bai giua ky Dien toan dam may - Tran Thanh Hau - 23IT069",
+  "engines": { "node": "24.x" },
+  "scripts": {
+    "start": "node src/server.js",
+    "test": "node --test",
+    "check:atlas": "node scripts/check-atlas.js"
+  },
+  "dependencies": {
+    "dotenv": "^16.6.1",
+    "express": "^5.1.0",
+    "express-handlebars": "^8.0.3",
+    "express-session": "^1.18.2",
+    "mongodb": "^6.20.0"
+  }
+}
