@@ -25,3 +25,33 @@ Hai nhánh `feature/database` và `feature/session` được merge bằng `--no-
 ```powershell
 git log --graph --oneline --all --decorate
 ```
+
+## Chức năng
+
+- Đọc collection `Books` bằng tài khoản chỉ đọc; thêm sách bằng tài khoản chỉ ghi.
+- Từ chối mã không bắt đầu bằng `069`. VAT 14% tính ở server, giá sau thuế làm tròn đến đồng.
+- Handlebars hiển thị giá trước/sau thuế và footer Trần Thành Hậu / 23IT069 / VAT 14%.
+- Session lưu trong Atlas bằng custom store: get dùng readDb; set/touch/destroy dùng writeDb.
+- Cookie chỉ giữ ID phiên; không dùng MemoryStore trong ứng dụng. CSRF token bảo vệ biểu mẫu.
+- Trang này là bài demo chức năng, chưa có đăng nhập người dùng; người truy cập có thể thêm sách.
+
+## Kiểm tra
+
+`npm test`: chạy test local với database giả lập, không kết nối hoặc thay đổi Atlas. Kiểm tra tiền tố, VAT, dữ liệu sai, CSRF, trùng mã, escape HTML, hết hạn và dùng chung phiên giữa hai app.
+
+`npm run check:atlas`: kiểm tra kết nối thật và quyền đọc Books. Không chứng minh quyền ghi hoặc quyền bị cấm.
+
+Kiểm tra thủ công trên trình duyệt:
+1. Chạy `npm start`, mở http://localhost:3000.
+2. Thêm `069-S001`, giá `100000`: VAT 14%, sau thuế 114000 đồng.
+3. Thử `123-S001`: bị từ chối; thử mã đã có: báo trùng.
+4. Mở Thông tin kiểm tra phiên, ghi lại mã; Ctrl+C rồi npm start, refresh cùng trình duyệt: mã giữ nguyên.
+5. Kiểm tra tài liệu sách và sessions trên Atlas.
+
+## Triển khai (chưa thực hiện)
+
+- GitHub repository Private; mời đúng tài khoản giảng viên.
+- Render Web Service: branch main; build `npm ci`; start `npm start`; health `/health`.
+- Environment: STUDENT_NAME, STUDENT_ID, MONGODB_READ_URI, MONGODB_WRITE_URI, SESSION_SECRET, NODE_ENV=production.
+- Mọi instance dùng chung SESSION_SECRET và kho Atlas. Chọn dịch vụ không ngủ nếu yêu cầu 24/7.
+- Không đưa `.env`, ảnh mật khẩu hoặc URI thật vào repository.
