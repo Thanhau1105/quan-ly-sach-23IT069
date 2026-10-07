@@ -1,6 +1,6 @@
 function studentRules(id) {
   if (!/^[A-Za-z0-9]*\d{3}$/.test(id || "")) throw new Error("MSSV không hợp lệ.");
-  return { prefix: id.slice(-3), vatPercent: Number(id.slice(-1)) + 5 };
+  return { prefix: id.slice(-3), vatPercent: Number(id.slice(-1)) + 6 };
 }
 function prepareBook(body, rules) {
   const code = typeof body.code === "string" ? body.code.trim() : "";

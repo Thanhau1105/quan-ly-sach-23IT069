@@ -4,10 +4,10 @@ const { once } = require("node:events");
 const { createApp } = require("../src/app");
 const { studentRules, prepareBook } = require("../src/book-rules");
 
-test("MSSV chữ/số, tiền tố 069, VAT 14%, kiểm tra đầu vào", () => {
+test("MSSV chữ/số, tiền tố 069, VAT 15%, kiểm tra đầu vào", () => {
   const rules = studentRules("23IT069");
-  assert.deepEqual(rules, { prefix: "069", vatPercent: 14 });
-  assert.equal(prepareBook({ code: "069-S001", title: "Sách", price: "100000", vatPercent: "0" }, rules).finalPrice, 114000);
+  assert.deepEqual(rules, { prefix: "069", vatPercent: 15 });
+  assert.equal(prepareBook({ code: "069-S001", title: "Sách", price: "100000", vatPercent: "0" }, rules).finalPrice, 115000);
   for (const body of [
     { code: "69-S001", title: "Sách", price: "100" },
     { code: "123-S001", title: "Sách", price: "100" },
@@ -63,7 +63,7 @@ test("HTTP: Handlebars, CSRF, thêm sách, VAT server, trùng mã, chia sẻ phi
   const first = await fetch(base);
   const html = await first.text();
   assert.match(html, /Trần Thành Hậu/);
-  assert.match(html, /14%/);
+  assert.match(html, /15%/);
   const setCookie = first.headers.get("set-cookie");
   assert.match(setCookie, /HttpOnly/);
   const cookie = setCookie.split(";")[0];
@@ -76,8 +76,8 @@ test("HTTP: Handlebars, CSRF, thêm sách, VAT server, trùng mã, chia sẻ phi
   assert.equal(data.books.length, 0);
   const body = { csrfToken: token, code: "069-A", title: "<script>alert(1)</script>", price: "100000", finalPrice: "1", vatPercent: "0" };
   assert.equal((await post(body)).status, 303);
-  assert.equal(data.books[0].finalPrice, 114000);
-  assert.equal(data.books[0].vatPercent, 14);
+  assert.equal(data.books[0].finalPrice, 115000);
+  assert.equal(data.books[0].vatPercent, 15);
   assert.equal((await post(body)).status, 409);
   assert.equal(data.books.length, 1);
   const after = await (await fetch(base, { headers: { cookie } })).text();

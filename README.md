@@ -4,7 +4,7 @@ Trần Thành Hậu — **23IT069**.
 
 - Database: `DB_23IT069`
 - Tiền tố mã sách: `069` (giữ nguyên số 0 đầu)
-- VAT: `(9 + 5)% = 14%`
+- VAT: `(9 + 6)% = 15%`
 - Node.js 24; Express; Handlebars; MongoDB Atlas.
 
 ## Chạy trên máy
@@ -29,8 +29,8 @@ git log --graph --oneline --all --decorate
 ## Chức năng
 
 - Đọc collection `Books` bằng tài khoản chỉ đọc; thêm sách bằng tài khoản chỉ ghi.
-- Từ chối mã không bắt đầu bằng `069`. VAT 14% tính ở server, giá sau thuế làm tròn đến đồng.
-- Handlebars hiển thị giá trước/sau thuế và footer Trần Thành Hậu / 23IT069 / VAT 14%.
+- Từ chối mã không bắt đầu bằng `069`. VAT 15% tính ở server, giá sau thuế làm tròn đến đồng.
+- Handlebars hiển thị giá trước/sau thuế và footer Trần Thành Hậu / 23IT069 / VAT 15%.
 - Session lưu trong Atlas bằng custom store: get dùng readDb; set/touch/destroy dùng writeDb.
 - Cookie chỉ giữ ID phiên; không dùng MemoryStore trong ứng dụng. CSRF token bảo vệ biểu mẫu.
 - Trang này là bài demo chức năng, chưa có đăng nhập người dùng; người truy cập có thể thêm sách.
@@ -45,7 +45,7 @@ git log --graph --oneline --all --decorate
 
 Kiểm tra thủ công trên trình duyệt:
 1. Chạy `npm start`, mở http://localhost:3000.
-2. Thêm `069-S001`, giá `100000`: VAT 14%, sau thuế 114000 đồng.
+2. Thêm một mã mới bắt đầu bằng `069`, giá `100000`: VAT 15%, sau thuế 115000 đồng.
 3. Thử `123-S001`: bị từ chối; thử mã đã có: báo trùng.
 4. Mở Thông tin kiểm tra phiên, ghi lại mã; Ctrl+C rồi npm start, refresh cùng trình duyệt: mã giữ nguyên.
 5. Kiểm tra tài liệu sách và sessions trên Atlas.
