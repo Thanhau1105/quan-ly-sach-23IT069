@@ -8,7 +8,7 @@ async function expectDenied(label, operation) {
     await operation();
   } catch (error) {
     const denied = error.code === 13 || (
-      error.code === 8000 && /not authorized/i.test(error.message || "")
+      error.code === 8000 && /not (?:authorized|allowed)/i.test(error.message || "")
     );
 
     if (denied) {
