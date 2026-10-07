@@ -41,6 +41,8 @@ git log --graph --oneline --all --decorate
 
 `npm run check:atlas`: kiểm tra kết nối thật và quyền đọc Books. Không chứng minh quyền ghi hoặc quyền bị cấm.
 
+`npm run check:permissions`: xác nhận tài khoản đọc bị chặn khi insert và tài khoản ghi bị chặn khi find. Bản ghi kiểm tra tạm trong sessions được dọn tự động nếu thao tác insert ngoài ý muốn thành công.
+
 Kiểm tra thủ công trên trình duyệt:
 1. Chạy `npm start`, mở http://localhost:3000.
 2. Thêm `069-S001`, giá `100000`: VAT 14%, sau thuế 114000 đồng.
